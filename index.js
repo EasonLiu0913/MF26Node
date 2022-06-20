@@ -29,5 +29,21 @@ app.post("/member", async (req, res) => {
     res.json({ db: rs, data: "a", userLogin: true });
 });
 
+app.post("/login", async (req, res) => {
+    // console.log("member post", req.body.email);
+    // console.log("member post", req.body.password);
+    // const email = req.body.email;
+    // const password = req.body.password;
+    const { email, password } = req.body;
+    console.log("member email", email);
+    console.log("member password", password);
+
+    const sql = "SELECT * FROM `address_book` WHERE email = ? AND mobile = ?";
+
+    const [rs] = await db.query(sql, [email, password]);
+
+    res.json({ db: rs, data: "a", userLogin: true });
+});
+
 console.log("server started at: http://localhost:3000");
 app.listen(3000);
